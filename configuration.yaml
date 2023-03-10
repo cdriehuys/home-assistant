@@ -1,0 +1,61 @@
+homeassistant:
+  name: Home
+  elevation: !secret elevation
+  latitude: !secret latitude
+  longitude: !secret longitude
+  temperature_unit: F
+  time_zone: America/New_York
+  unit_system: imperial
+  currency: USD
+  language: en
+  country: US
+  internal_url: https://homeassistant.proxy.lan.qidux.com
+  external_url: https://homeassistant.qidux.com
+
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    # Internal network
+    - 192.168.1.0/24
+    # Localhost for cloudflare tunnel
+    - 127.0.0.1
+    - "::1"
+
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+google_assistant:
+  project_id: !secret google_project_id
+  service_account: !include service-account.json
+  report_state: true
+
+rest:
+  - resource: http://bedmirror.lan.qidux.com:8080/display-state
+    binary_sensor:
+      - name: Bedroom Mirror Display
+        unique_id: bedroom_mirror_display
+        value_template: "{{ value_json.on }}"
+
+rest_command:
+  magic_mirror_on:
+    url: http://bedmirror.lan.qidux.com:8080/display-state
+    method: put
+    content_type: application/json
+    payload: '{"on": true}'
+  magic_mirror_off:
+    url: http://bedmirror.lan.qidux.com:8080/display-state
+    method: put
+    content_type: application/json
+    payload: '{"on": false}'
