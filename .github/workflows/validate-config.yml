@@ -1,0 +1,21 @@
+name: Validate Config
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Create stub files for expected data
+        run: |
+          touch automations.yaml scenes.yaml scripts.yaml
+          cp test-data/google-service-account.json ./service-account.json
+      - uses: frenck/action-home-assistant@v1
+        with:
+          secrets: test-data/fake-secrets.yaml
+          version: stable
