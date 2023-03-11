@@ -59,3 +59,6 @@ rest_command:
     method: put
     content_type: application/json
     payload: '{"on": false}'
+  magic_mirror_refresh:
+    url: http://bedmirror.lan.qidux.com:8080/refresh
+    method: post
