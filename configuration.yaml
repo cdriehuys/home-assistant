@@ -43,6 +43,7 @@ google_assistant:
 
 switch:
   - name: Bedroom Mirror Display
+    unique_id: bedroom_mirror_display
     platform: rest
     resource: https://mm-controller.proxy.lan.qidux.com/display-state
     method: put
