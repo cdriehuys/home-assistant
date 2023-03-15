@@ -45,6 +45,7 @@ switch:
   - name: Bedroom Mirror Display
     platform: rest
     resource: https://mm-controller.proxy.lan.qidux.com/display-state
+    method: put
     body_on: '{"on": true}'
     body_off: '{"on": false}'
     is_on_template: "{{ value_json.on }}"
