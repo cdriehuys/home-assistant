@@ -42,7 +42,7 @@ google_assistant:
   report_state: true
 
 rest:
-  - resource: http://bedmirror.lan.qidux.com:8080/display-state
+  - resource: https://mm-controller.proxy.lan.qidux.com/display-state
     binary_sensor:
       - name: Bedroom Mirror Display
         unique_id: bedroom_mirror_display
@@ -50,15 +50,15 @@ rest:
 
 rest_command:
   magic_mirror_on:
-    url: http://bedmirror.lan.qidux.com:8080/display-state
+    url: https://mm-controller.proxy.lan.qidux.com/display-state
     method: put
     content_type: application/json
     payload: '{"on": true}'
   magic_mirror_off:
-    url: http://bedmirror.lan.qidux.com:8080/display-state
+    url: https://mm-controller.proxy.lan.qidux.com/display-state
     method: put
     content_type: application/json
     payload: '{"on": false}'
   magic_mirror_refresh:
-    url: http://bedmirror.lan.qidux.com:8080/refresh
+    url: https://mm-controller.proxy.lan.qidux.com/refresh
     method: post
